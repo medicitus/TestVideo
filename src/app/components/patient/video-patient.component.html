@@ -1,0 +1,28 @@
+<div class="waiting-room">
+  <div class="content row">
+    <div style="height: 100%;">
+      <div class="videos-container" *ngIf="(callService!=null)">
+        <div class="videos">
+          <div class="header">
+            <div class="action" *ngIf="callService.isInCall" (click)="confirmModal.open();">Raccrocher</div>
+            <div class="action" *ngIf="!callService.isInCall" (click)="back();">Terminer</div>
+          </div>
+          <video id="remote" autoplay playsinline *ngIf="callService.remoteVideo" [srcObject]="callService.remoteVideo"></video>
+          <video id="local" autoplay muted playsinline onloadedmetadata="this.muted = true" *ngIf="callService.localVideo" [srcObject]="callService.localVideo" [ngClass]="{preview: callService.isCalling || callService.isAnswering}"></video>
+          <div class="video-toolbar">
+            <div class="action btnMutOff" *ngIf="callService.isInCall && btnMutOff" (click)="mute(false)"><i class="fa fa-microphone-slash"></i></div>
+            <div class="action btnMutOn" *ngIf="callService.isInCall && btnMutOn" (click)="mute(true)"><i class="fa fa-microphone"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="header" *ngIf="callService.isAnswering">
+        <span *ngIf="callService.isAnswering"><b>Appel</b></span>
+        <div class="actions">
+          <div class="action" *ngIf="callService.isAnswering" (click)="callService.answer()"><span class="glyphicon glyphicon-earphone"></span> Répondre</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

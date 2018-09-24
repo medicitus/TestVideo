@@ -1,0 +1,40 @@
+<div class="call-container row">
+
+  <div class="col-md-4">
+    <div class="col-video">
+      <div class="top">
+        <div class="doctor-video">
+          <video id="local" autoplay muted playsinline onloadedmetadata="this.muted = true" *ngIf="callService.localVideo" [srcObject]="callService.localVideo"
+                 [ngClass]="{preview: callService.isCalling || callService.isAnswering}"></video>
+        </div>
+      </div>
+      <div class="videos-container">
+        <div class="videos inCallUI">
+          <div class="btnAppelerRacrrocher" *ngIf="this.callService.isInCall && !callService.remoteVideo">
+            Si vous ne voyez pas le patient dans quelques secondes, veuillez raccrocher en cliquant ci-dessous sur
+            <div class="action btnRaccrocher" (click)="endCall()">
+              <span class="glyphicon glyphicon glyphicon-phone-alt"></span>
+            </div>
+            et le rappeler en cliquant ensuite sur
+            <div class="action btnAppeler">
+              <span class="glyphicon glyphicon-earphone"></span>
+            </div>.
+          </div>
+          <video id="remote" autoplay playsinline *ngIf="callService.remoteVideo" [srcObject]="callService.remoteVideo"></video>
+          <div class="video-toolbar">
+            <div class="action btnMutOff" *ngIf="btnMutOff" (click)="mute(false)"><i class="fa fa-microphone-slash"></i></div>
+            <div class="action btnMutOn" *ngIf="btnMutOn" (click)="mute(true)"><i class="fa fa-microphone"></i></div>
+            <div class="action btnRaccrocher" *ngIf="btnRaccrocher" (click)="endCall()"><span class="glyphicon glyphicon glyphicon-phone-alt"></span></div>
+            <div class="action btnAppeler" *ngIf="btnAppeler" (click)="callPatient()"><span class="glyphicon glyphicon-earphone"></span></div>
+          </div>
+        </div>
+        <div class="recall" *ngIf="displayCall || displayResetCall">
+          <!--<div class="action" *ngIf="displayCall && (!displayResetCall)" (click)="callPatient()">Rappeler le patient</div>
+          <div class="action" *ngIf="displayResetCall" (click)="callPatient()">Relancer l'appel</div>-->
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
